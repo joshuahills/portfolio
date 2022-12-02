@@ -16,17 +16,17 @@ steps:
   displayName: 'Install Node.js'
 
 - task: Npm@1
+  displayName: npm install
   inputs:
     command: 'install'
     workingDir: '$(System.DefaultWorkingDirectory)/Portfolio.Web'
 
-- script: |
-    npm run build:prod
-  displayName: 'npm run build:prod'
-
-- script: |
-    npm run lint
-  displayName: 'Lint'
+- task: Npm@1
+  displayName: npm run build --configuration production
+  inputs:
+    command: 'custom'
+    workingDir: '$(System.DefaultWorkingDirectory)/Portfolio.Web'
+    customCommand: 'npm run build --configuration production'
 
 - task: NuGetToolInstaller@1
   inputs:
@@ -42,13 +42,13 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish PurpleLogger'
   inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)/portfolio/Portfolio.Api/bin/$(BuildConfiguration)/net7.0'
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/Portfolio.Api/bin/$(BuildConfiguration)/net7.0'
     ArtifactName: 'Portfolio API'
     publishLocation: 'Container'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Portfolio Frontend'
   inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)/portfolio/Portfolio.Web/dist'
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/Portfolio.Web/dist'
     ArtifactName: 'Portfolio Web'
     publishLocation: 'Container'
