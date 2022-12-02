@@ -40,7 +40,7 @@ steps:
     arguments: '-restore -p:configuration=$(BuildConfiguration);DeployOnBuild=true;UseWPP_CopyWebApplication=true;PipelineDependsOnBuild=false'''
 
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish PurpleLogger'
+  displayName: 'Publish Portfolio API'
   inputs:
     PathtoPublish: '$(System.DefaultWorkingDirectory)/Portfolio.Api/bin/$(BuildConfiguration)/net7.0'
     ArtifactName: 'Portfolio API'
