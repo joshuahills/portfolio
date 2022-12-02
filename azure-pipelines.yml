@@ -18,7 +18,7 @@ steps:
 - task: Npm@1
   inputs:
     command: 'install'
-    workingDir: '/Portfolio.Web'
+    workingDir: '$(System.DefaultWorkingDirectory)/Portfolio.Web'
 
 - script: |
     npm run build:prod
