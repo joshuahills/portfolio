@@ -26,7 +26,7 @@ steps:
   inputs:
     command: 'custom'
     workingDir: '$(System.DefaultWorkingDirectory)/Portfolio.Web'
-    customCommand: 'build --configuration production'
+    customCommand: 'run build:prod'
 
 - task: NuGetToolInstaller@1
   inputs:
