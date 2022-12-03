@@ -25,7 +25,7 @@ steps:
     organization: 'joshuahills'
     scannerMode: 'MSBuild'
     projectKey: 'joshuahills_portfolio'
-    extraProperties: 'sonar.cs.opencover.reportsPaths="$(Build.SourcesDirectory)/coverlet/reports/Cobertura.xml"'
+    extraProperties: 'sonar.cs.opencover.reportsPaths="$(Build.SourcesDirectory)/coverlet/reports/SonarQube.xml"'
 
 - task: VisualStudioTestPlatformInstaller@1
   inputs:
@@ -74,14 +74,14 @@ steps:
     ArtifactName: 'Portfolio API'
     publishLocation: 'Container'
 
-- script: 'reportgenerator -reports:$(Agent.TempDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"Cobertura"'  
+- script: 'reportgenerator -reports:$(Agent.TempDirectory)/**/coverage.SonarQube.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"SonarQube"'  
   displayName: 'Create code coverage reports'
 
 - task: PublishCodeCoverageResults@1
   displayName: 'Publish code coverage'
   inputs:  
     codeCoverageTool: Cobertura
-    summaryFileLocation: '$(Build.SourcesDirectory)/coverlet/reports/Cobertura.xml'
+    summaryFileLocation: '$(Build.SourcesDirectory)/coverlet/reports/SonarQube.xml'
 
 - task: SonarCloudAnalyze@1
 
