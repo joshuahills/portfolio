@@ -25,7 +25,7 @@ steps:
     organization: 'joshuahills'
     scannerMode: 'MSBuild'
     projectKey: 'joshuahills_portfolio'
-    extraProperties: 'sonar.cs.opencover.reportsPaths="$(Build.SourcesDirectory)/coverlet/reports/SonarQube.xml"'
+    extraProperties: 'sonar.coverageReportPaths="$(Build.SourcesDirectory)/coverlet/reports/SonarQube.xml"'
 
 - task: VisualStudioTestPlatformInstaller@1
   inputs:
