@@ -60,12 +60,18 @@ steps:
     custom: 'msbuild'
     arguments: '-restore -p:configuration=$(BuildConfiguration);DeployOnBuild=true;UseWPP_CopyWebApplication=true;PipelineDependsOnBuild=false'''
 
-- task: DotNetCoreCLI@2
-  displayName: '[Api] Unit tests'
+- task: VSTest@2
+  displayName: '[Api] Run unit tests'
   inputs:
-    command: 'test'
-    projects: 'Tests/**/*.csproj'
-    arguments: '--collect "Code Coverage"'
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **\Portfolio.Api.UnitTests.dll
+      !**\*TestAdapter.dll
+      !**\obj\**
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+    vsTestVersion: 'toolsInstaller'
+    codeCoverageEnabled: true
+    failOnMinTestsNotRun: true
 
 - task: PublishBuildArtifacts@1
   displayName: '[Api] Publish'
