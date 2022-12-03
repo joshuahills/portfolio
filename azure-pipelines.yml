@@ -60,18 +60,25 @@ steps:
     custom: 'msbuild'
     arguments: '-restore -p:configuration=$(BuildConfiguration);DeployOnBuild=true;UseWPP_CopyWebApplication=true;PipelineDependsOnBuild=false'''
 
-- task: VSTest@2
+# - task: VSTest@2
+#   displayName: '[Api] Run unit tests'
+#   inputs:
+#     testSelector: 'testAssemblies'
+#     testAssemblyVer2: |
+#       **\Portfolio.Api.UnitTests.dll
+#       !**\*TestAdapter.dll
+#       !**\obj\**
+#     searchFolder: '$(System.DefaultWorkingDirectory)'
+#     vsTestVersion: 'toolsInstaller'
+#     codeCoverageEnabled: true
+#     failOnMinTestsNotRun: true
+
+- task: DotNetCoreCLI@2
   displayName: '[Api] Run unit tests'
   inputs:
-    testSelector: 'testAssemblies'
-    testAssemblyVer2: |
-      **\Portfolio.Api.UnitTests.dll
-      !**\*TestAdapter.dll
-      !**\obj\**
-    searchFolder: '$(System.DefaultWorkingDirectory)'
-    vsTestVersion: 'toolsInstaller'
-    codeCoverageEnabled: true
-    failOnMinTestsNotRun: true
+    command: 'test'
+    projects: 'e.g. **/Tests/*.csproj'
+    arguments: '--collect:"XPlat Code Coverage"'
 
 - task: PublishBuildArtifacts@1
   displayName: '[Api] Publish'
@@ -80,7 +87,7 @@ steps:
     ArtifactName: 'Portfolio API'
     publishLocation: 'Container'
 
-- script: 'reportgenerator -reports:$(Agent.TempDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"Cobertura"'  
+- script: 'reportgenerator -reports:$(System.DefaultWorkingDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"Cobertura"'  
   displayName: 'Create code coverage reports'
 
 - task: PublishCodeCoverageResults@1
