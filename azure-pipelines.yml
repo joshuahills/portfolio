@@ -39,6 +39,13 @@ steps:
     workingDir: '$(System.DefaultWorkingDirectory)/Portfolio.Web'
     customCommand: 'run build:prod'
 
+- task: PublishBuildArtifacts@1
+  displayName: '[Web] Publish'
+  inputs:
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/Portfolio.Web/dist'
+    ArtifactName: 'Portfolio Web'
+    publishLocation: 'Container'
+
 - task: DotNetCoreCLI@2
   displayName: '[Api] Build'
   inputs:
@@ -47,22 +54,15 @@ steps:
     custom: 'msbuild'
     arguments: '-restore -p:configuration=$(BuildConfiguration);DeployOnBuild=true;UseWPP_CopyWebApplication=true;PipelineDependsOnBuild=false'''
 
-- task: SonarCloudAnalyze@1
-
-- task: SonarCloudPublish@1
-  inputs:
-    pollingTimeoutSec: '300'
-
-- task: PublishBuildArtifacts@1
-  displayName: '[Web] Publish'
-  inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)/Portfolio.Web/dist'
-    ArtifactName: 'Portfolio Web'
-    publishLocation: 'Container'
-
 - task: PublishBuildArtifacts@1
   displayName: '[Api] Publish'
   inputs:
     PathtoPublish: '$(System.DefaultWorkingDirectory)/Portfolio.Api/bin/$(BuildConfiguration)/net7.0'
     ArtifactName: 'Portfolio API'
     publishLocation: 'Container'
+
+- task: SonarCloudAnalyze@1
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
