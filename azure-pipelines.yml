@@ -15,6 +15,10 @@ steps:
     versionSpec: '16.x'
   displayName: 'Install Node.js'
 
+- task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: '6.4.0'
+
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'Sonarcloud'
@@ -23,23 +27,20 @@ steps:
     projectKey: 'joshuahills_portfolio'
 
 - task: Npm@1
-  displayName: npm install
+  displayName: '[Web] npm install'
   inputs:
     command: 'install'
     workingDir: '$(System.DefaultWorkingDirectory)/Portfolio.Web'
 
 - task: Npm@1
-  displayName: npm run build --configuration production
+  displayName: '[Web] Build'
   inputs:
     command: 'custom'
     workingDir: '$(System.DefaultWorkingDirectory)/Portfolio.Web'
     customCommand: 'run build:prod'
 
-- task: NuGetToolInstaller@1
-  inputs:
-    versionSpec: '6.4.0'
-
 - task: DotNetCoreCLI@2
+  displayName: '[Api] Build'
   inputs:
     command: 'custom'
     projects: '$(System.DefaultWorkingDirectory)/**/*.sln'
@@ -53,15 +54,15 @@ steps:
     pollingTimeoutSec: '300'
 
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish Portfolio API'
-  inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)/Portfolio.Api/bin/$(BuildConfiguration)/net7.0'
-    ArtifactName: 'Portfolio API'
-    publishLocation: 'Container'
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Portfolio Frontend'
+  displayName: '[Web] Publish'
   inputs:
     PathtoPublish: '$(System.DefaultWorkingDirectory)/Portfolio.Web/dist'
     ArtifactName: 'Portfolio Web'
+    publishLocation: 'Container'
+
+- task: PublishBuildArtifacts@1
+  displayName: '[Api] Publish'
+  inputs:
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/Portfolio.Api/bin/$(BuildConfiguration)/net7.0'
+    ArtifactName: 'Portfolio API'
     publishLocation: 'Container'
