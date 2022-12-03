@@ -1,0 +1,15 @@
+{
+  "ServerUri": "https://sonarcloud.io/",
+  "Organization": {
+    "Key": "joshuahills",
+    "Name": "Josh Hills"
+  },
+  "ProjectKey": "joshuahills_portfolio",
+  "ProjectName": "portfolio",
+  "Profiles": {
+    "CSharp": {
+      "ProfileKey": "AYF4-eQVYc1VxCR5_FqD",
+      "ProfileTimestamp": "2022-07-05T10:19:10Z"
+    }
+  }
+}
