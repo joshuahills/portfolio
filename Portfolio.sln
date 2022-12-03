@@ -7,10 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portfolio.Api", "Portfolio.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D74CF085-88E9-4E51-BDAF-CE03917E2D4B}"
 	ProjectSection(SolutionItems) = preProject
+		Portfolio.Api\.editorconfig = Portfolio.Api\.editorconfig
 		azure-pipelines.yml = azure-pipelines.yml
 		README.md = README.md
 		sonar-project.properties = sonar-project.properties
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{3117910E-ADE9-4D8A-8F76-F02E9AB83F11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portfolio.Api.UnitTests", "Tests\Portfolio.Api.UnitTests\Portfolio.Api.UnitTests.csproj", "{F7E46FA7-B66C-4F42-A71A-9115A8062EBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,9 +27,16 @@ Global
 		{F9720FAD-9C51-4352-9D11-BA3A3F8F3D48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9720FAD-9C51-4352-9D11-BA3A3F8F3D48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9720FAD-9C51-4352-9D11-BA3A3F8F3D48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7E46FA7-B66C-4F42-A71A-9115A8062EBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7E46FA7-B66C-4F42-A71A-9115A8062EBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7E46FA7-B66C-4F42-A71A-9115A8062EBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7E46FA7-B66C-4F42-A71A-9115A8062EBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F7E46FA7-B66C-4F42-A71A-9115A8062EBD} = {3117910E-ADE9-4D8A-8F76-F02E9AB83F11}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {99715568-1150-473B-9CF9-4B10DF039C33}
