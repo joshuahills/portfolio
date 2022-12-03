@@ -74,7 +74,7 @@ steps:
     ArtifactName: 'Portfolio API'
     publishLocation: 'Container'
 
-- script: 'reportgenerator -reports:$(Agent.TempDirectory)/**/coverage.SonarQube.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"SonarQube"'  
+- script: 'reportgenerator -reports:$(Agent.TempDirectory)/**/coverage.sonarqube.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"SonarQube"'  
   displayName: 'Create code coverage reports'
 
 - task: PublishCodeCoverageResults@1
