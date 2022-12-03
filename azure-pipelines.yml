@@ -29,7 +29,7 @@ steps:
 - task: VisualStudioTestPlatformInstaller@1
   inputs:
     packageFeedSelector: 'nugetOrg'
-    versionSelector: 'latestPreRelease'
+    versionSelector: 'latestStable'
 
 - task: Npm@1
   displayName: '[Web] npm install'
@@ -68,6 +68,7 @@ steps:
       !**\*TestAdapter.dll
       !**\obj\**
     searchFolder: '$(System.DefaultWorkingDirectory)'
+    vsTestVersion: 'toolsInstaller'
     codeCoverageEnabled: true
     failOnMinTestsNotRun: true
 
