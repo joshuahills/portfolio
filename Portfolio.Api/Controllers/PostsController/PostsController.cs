@@ -9,16 +9,11 @@ using Microsoft.AspNetCore.Mvc;
 [Route("[controller]")]
 public class PostsController : ControllerBase
 {
-    /// <summary>The logger.</summary>
-    private readonly ILogger<PostsController> logger;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="PostsController"/> class.
     /// </summary>
-    /// <param name="logger">The logger.</param>
-    public PostsController(ILogger<PostsController> logger)
+    public PostsController()
     {
-        this.logger = logger;
     }
 
     /// <summary>
