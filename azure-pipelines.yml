@@ -25,7 +25,7 @@ steps:
     organization: 'joshuahills'
     scannerMode: 'MSBuild'
     projectKey: 'joshuahills_portfolio'
-    extraProperties: 'sonar.cs.opencover.reportsPaths="$(Build.SourcesDirectory)\Coverage.xml"'
+    extraProperties: 'sonar.cs.opencover.reportsPaths="$(Build.SourcesDirectory)/coverlet/reports/Cobertura.xml"'
 
 - task: VisualStudioTestPlatformInstaller@1
   inputs:
@@ -74,39 +74,17 @@ steps:
     ArtifactName: 'Portfolio API'
     publishLocation: 'Container'
 
-- task: CmdLine@2
-  name: CodeCoverage_ReportGenertor
-  inputs:
-    script: |
-      "$(OpenCover)" -target:"C:\Program Files (x86)\NUnit.org\nunit-console\nunit3-console.exe" -filter:"+[*]* -[AutoFixture]* -[nunit.framework]* -[mscorlib]* -[mscorlib.*]* -[System]* -[System.*]* -[Microsoft.VisualStudio]* -[FluentAssertions]* -[Moq]* -[Quartz]* -[*]Properties.*" -skipautoprops -targetargs:"$(Build.SourcesDirectory)\UnitTests\bin\Prod\$(UnitTestDll)" -excludebyattribute:"*ExcludeFromCodeCoverage*" -register:administrator -output:"$(Build.SourcesDirectory)\Unit Tests Code Coverage.xml"
-    workingDirectory: '$(Build.SourcesDirectory)'
+- script: 'dotnet tool install --global dotnet-reportgenerator-globaltool --version 4.5.8'
+  displayName: 'Install ReportGenerator tool'
 
-- task: reportgenerator@5
-  inputs:
-    reports: '$(Build.SourcesDirectory)\Unit Tests Code Coverage'
-    targetdir: '$(Build.SourcesDirectory)\Unit Tests Code Coverage'
-    reporttypes: 'Html;Cobertura;SonarQube'
-    title: 'Code Coverage'
-
-- task: CopyFiles@2
-  name: Copy_Code_Coverage_Reports
-  inputs:
-    SourceFolder: '$(Build.SourcesDirectory)'
-    Contents: 'Code Coverage Report*\**'
-    TargetFolder: '$(Build.SourcesDirectory)\CodeCoverageReports'
-  
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: Code Coverage Reports'
-  inputs:
-    PathtoPublish: "$(Build.SourcesDirectory)/CodeCoverageReports"
-    ArtifactName: UnitTestCodeCoverageReports
+- script: 'reportgenerator -reports:$(Agent.TempDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"Cobertura"'  
+  displayName: 'Create reports'
 
 - task: PublishCodeCoverageResults@1
-  name: Publish_UnitTestCodeCoverageReport
-  inputs:
-    codeCoverageTool: 'Cobertura'
-    summaryFileLocation: '$(Build.SourcesDirectory)\Cobertura\Unit\Cobertura.xml'
-    reportDirectory: '$(Build.SourcesDirectory)\Cobertura\UnitTests'
+  displayName: 'Publish code coverage'
+  inputs:  
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(Build.SourcesDirectory)/coverlet/reports/Cobertura.xml'
 
 - task: SonarCloudAnalyze@1
 
