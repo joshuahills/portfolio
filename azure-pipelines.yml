@@ -77,7 +77,7 @@ steps:
   displayName: '[Api] Run unit tests'
   inputs:
     command: 'test'
-    projects: '**/Tests/*.csproj'
+    projects: 'Tests/**/*.csproj'
     arguments: '--collect:"XPlat Code Coverage"'
 
 - task: PublishBuildArtifacts@1
