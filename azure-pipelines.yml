@@ -39,18 +39,18 @@ steps:
   inputs:
     versionSpec: '6.4.0'
 
-- task: SonarCloudAnalyze@1
-
-- task: SonarCloudPublish@1
-  inputs:
-    pollingTimeoutSec: '300'
-
 - task: DotNetCoreCLI@2
   inputs:
     command: 'custom'
     projects: '$(System.DefaultWorkingDirectory)/**/*.sln'
     custom: 'msbuild'
     arguments: '-restore -p:configuration=$(BuildConfiguration);DeployOnBuild=true;UseWPP_CopyWebApplication=true;PipelineDependsOnBuild=false'''
+
+- task: SonarCloudAnalyze@1
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Portfolio API'
