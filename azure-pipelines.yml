@@ -26,6 +26,11 @@ steps:
     scannerMode: 'MSBuild'
     projectKey: 'joshuahills_portfolio'
 
+- task: VisualStudioTestPlatformInstaller@1
+  inputs:
+    packageFeedSelector: 'nugetOrg'
+    versionSelector: 'latestPreRelease'
+
 - task: Npm@1
   displayName: '[Web] npm install'
   inputs:
