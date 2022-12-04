@@ -18,11 +18,12 @@ public static class Program
                 .CreateBuilder()
                 .ConfigureControllers()
                 .ConfigureSettings()
+                .ConfigureAuth()
                 .ConfigureServices();
 
         var app = builder
-            .Build()
-            .ConfigureApi();
+                .Build()
+                .ConfigureApi();
 
         app.Run();
     }
