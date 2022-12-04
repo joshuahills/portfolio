@@ -47,4 +47,12 @@ public class AzureActiveDirectorySettings
     /// The tenant identifier.
     /// </value>
     public string TenantId { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether [enable pii logging].
+    /// </summary>
+    /// <value>
+    ///   <c>true</c> if [enable pii logging]; otherwise, <c>false</c>.
+    /// </value>
+    public bool EnablePiiLogging { get; set; }
 }
