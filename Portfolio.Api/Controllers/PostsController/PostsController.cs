@@ -1,5 +1,6 @@
 namespace Portfolio.Api.Controllers;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 /// <summary>
@@ -24,5 +25,17 @@ public class PostsController : ControllerBase
     public PostDto GetPost()
     {
         return new PostDto();
+    }
+
+    /// <summary>
+    /// Gets the test ad authentication.
+    /// </summary>
+    /// <returns>Ok.</returns>
+    [HttpGet]
+    [Route("azure-ad-auth")]
+    [Authorize]
+    public IActionResult GetTestAdAuth()
+    {
+        return Ok();
     }
 }
