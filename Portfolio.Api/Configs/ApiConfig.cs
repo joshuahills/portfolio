@@ -24,12 +24,13 @@ public static class ApiConfig
         }
 
         app.UseHttpsRedirection()
-                   .UseRouting()
-                   .UseAuthorization()
-                   .UseEndpoints(endpoints =>
-                   {
-                       endpoints.MapControllers();
-                   });
+            .UseAuthentication()
+            .UseRouting()
+            .UseAuthorization()
+            .UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
 
         return app;
     }
