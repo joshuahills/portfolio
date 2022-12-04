@@ -1,8 +1,11 @@
 ﻿namespace Portfolio.Api.Settings;
 
+using System.Diagnostics.CodeAnalysis;
+
 /// <summary>
 /// Azure Active Directory settings.
 /// </summary>
+[ExcludeFromCodeCoverage]
 public class AzureActiveDirectorySettings
 {
     /// <summary>
