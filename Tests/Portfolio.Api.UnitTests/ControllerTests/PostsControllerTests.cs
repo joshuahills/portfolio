@@ -1,5 +1,6 @@
 namespace Portfolio.Api.UnitTests.ControllerTests;
 
+using Microsoft.AspNetCore.Mvc;
 using Portfolio.Api.Controllers;
 
 public class PostsControllerTests : TestBase<PostsController>
@@ -24,5 +25,17 @@ public class PostsControllerTests : TestBase<PostsController>
 
         // Assert
         result.Should().NotBeNull();
+    }
+
+    [Test]
+    public void When_GetTestAdAuth_Called_Should_Return_Ok()
+    {
+        // Arrange
+
+        // Act
+        var result = controller.GetTestAdAuth();
+
+        // Assert
+        result.Should().BeOfType<OkResult>();
     }
 }
