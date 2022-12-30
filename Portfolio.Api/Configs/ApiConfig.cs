@@ -26,6 +26,7 @@ public static class ApiConfig
         app.UseHttpsRedirection()
             .UseAuthentication()
             .UseRouting()
+            .UseCors("AllowWebAppOrigin")
             .UseAuthorization()
             .UseEndpoints(endpoints =>
             {

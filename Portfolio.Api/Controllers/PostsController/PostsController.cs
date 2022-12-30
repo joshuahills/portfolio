@@ -1,7 +1,7 @@
 namespace Portfolio.Api.Controllers;
 
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Portfolio.Api.Services;
 
 /// <summary>
 /// The posts controller.
@@ -10,32 +10,24 @@ using Microsoft.AspNetCore.Mvc;
 [Route("[controller]")]
 public class PostsController : ControllerBase
 {
+    private readonly IPostsService postsService;
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="PostsController"/> class.
+    /// Initializes a new instance of the <see cref="PostsController" /> class.
     /// </summary>
-    public PostsController()
+    /// <param name="postsService">The posts service.</param>
+    public PostsController(IPostsService postsService)
     {
+        this.postsService = postsService;
     }
 
     /// <summary>
-    /// Gets the post.
+    /// Gets the posts.
     /// </summary>
-    /// <returns>The post as a <see cref="PostDto"/>.</returns>
+    /// <returns>The posts.</returns>
     [HttpGet]
-    public PostDto GetPost()
+    public IEnumerable<PostDto> GetPost()
     {
-        return new PostDto();
-    }
-
-    /// <summary>
-    /// Gets the test ad authentication.
-    /// </summary>
-    /// <returns>Ok.</returns>
-    [HttpGet]
-    [Route("azure-ad-auth")]
-    [Authorize]
-    public IActionResult GetTestAdAuth()
-    {
-        return Ok();
+        return this.postsService.GetAllPosts();
     }
 }

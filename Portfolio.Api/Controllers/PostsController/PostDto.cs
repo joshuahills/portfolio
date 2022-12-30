@@ -1,5 +1,7 @@
 ﻿namespace Portfolio.Api.Controllers;
 
+using Portfolio.Context.Models;
+
 /// <summary>
 /// The post data transfer object.
 /// </summary>
@@ -12,6 +14,19 @@ public class PostDto
     {
         Title = string.Empty;
         Content = string.Empty;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PostDto"/> class.
+    /// </summary>
+    /// <param name="post">The post.</param>
+    public PostDto(Post post)
+    {
+        this.Id = post.Id;
+        this.Title = post.Title;
+        this.Content = post.Content;
+        this.CreatedTime = post.CreatedTimestamp;
+        this.UpdatedTime = post.UpdatedTimestamp;
     }
 
     /// <summary>
@@ -39,10 +54,18 @@ public class PostDto
     public string Content { get; set; }
 
     /// <summary>
-    /// Gets or sets the author identifier.
+    /// Gets or sets the created time.
     /// </summary>
     /// <value>
-    /// The author identifier.
+    /// The created time.
     /// </value>
-    public int AuthorId { get; set; }
+    public DateTimeOffset CreatedTime { get; set; }
+
+    /// <summary>
+    /// Gets or sets the updated time.
+    /// </summary>
+    /// <value>
+    /// The updated time.
+    /// </value>
+    public DateTimeOffset? UpdatedTime { get; set; }
 }

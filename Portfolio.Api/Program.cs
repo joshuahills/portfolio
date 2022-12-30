@@ -16,9 +16,12 @@ public static class Program
     {
         var builder = WebApplication
                 .CreateBuilder()
+                .ConfigureCors()
                 .ConfigureControllers()
                 .ConfigureSettings()
                 .ConfigureAuth()
+                .ConfigureDatabase()
+                .ConfigureRepositories()
                 .ConfigureServices();
 
         var app = builder
