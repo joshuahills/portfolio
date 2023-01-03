@@ -17,8 +17,8 @@ public interface IPostsService
     /// Gets a single post.
     /// </summary>
     /// <param name="id">The post identifier.</param>
-    /// <returns>The post with the corresponding identifier.</returns>
-    PostDto GetPost(int id);
+    /// <returns>The post with the corresponding identifier if found; otherwise <c>null</c>.</returns>
+    PostDto? GetPost(int id);
 
     /// <summary>
     /// Creates a post.

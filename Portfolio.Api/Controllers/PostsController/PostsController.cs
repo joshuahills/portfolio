@@ -26,8 +26,26 @@ public class PostsController : ControllerBase
     /// </summary>
     /// <returns>The posts.</returns>
     [HttpGet]
-    public IEnumerable<PostDto> GetPost()
+    public IEnumerable<PostDto> GetPosts()
     {
         return this.postsService.GetAllPosts();
+    }
+
+    /// <summary>
+    /// Gets a post by its identifir.
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <returns>The post with the given identifier if found; otherwise Not Found.</returns>
+    [HttpGet("{id:int}")]
+    public IActionResult GetPost(int id)
+    {
+        var post = this.postsService.GetPost(id);
+
+        if (post is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(post);
     }
 }

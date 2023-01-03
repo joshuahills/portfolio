@@ -1,0 +1,29 @@
+<div>
+  <div *ngIf="!loggedIn; else showLoggedIn" class="d-flex flex-column align-items-center">
+    <div class="alert alert-warning d-flex flex-row align-items-center">
+      <mat-icon class="me-2" style="min-width: 25px;">warning</mat-icon>
+      <div class="d-flex flex-column">
+        This link will prompt you to sign in via Azure Active Directory. Only permitted users will be authorised.
+      </div>
+    </div>
+  
+    <button mat-raised-button color="accent" (click)="loginPopup()">
+      <mat-icon>login</mat-icon>
+      Login with Azure AD
+    </button>
+  </div>
+
+  <ng-template #showLoggedIn>
+    <div class="alert alert-info d-flex flex-row align-items-center">
+      <mat-icon class="me-2" style="min-width: 25px;">info</mat-icon>
+      <div class="d-flex flex-column">
+        You're already logged in.
+      </div>
+    </div>
+    <button mat-raised-button color="accent" class="mt-3" (click)="logout(true)">
+      <mat-icon>logout</mat-icon>
+      Logout
+    </button>
+  </ng-template>
+</div>
+

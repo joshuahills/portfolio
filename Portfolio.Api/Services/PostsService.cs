@@ -62,9 +62,16 @@ public class PostsService : IPostsService
     /// <returns>
     /// The post with the corresponding identifier.
     /// </returns>
-    public PostDto GetPost(int id)
+    public PostDto? GetPost(int id)
     {
-        throw new NotImplementedException();
+        var post = this.postsRepository.GetByPrimaryKey(id);
+
+        if (post is null)
+        {
+            return null;
+        }
+
+        return new PostDto(post);
     }
 
     /// <summary>

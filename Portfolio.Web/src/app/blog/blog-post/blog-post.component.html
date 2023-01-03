@@ -1,0 +1,8 @@
+<div *ngIf="post$ | async as post">
+  <h3>{{post.title}}</h3>
+  <p>{{post.content}}</p>
+  <button mat-raised-button color="accent" routerLink="edit" *hasAppRole="'author'">
+    <mat-icon fontIcon="edit"></mat-icon>
+    Edit
+  </button>
+</div>
