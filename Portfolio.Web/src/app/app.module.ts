@@ -1,3 +1,4 @@
+import { environment } from './../environments/environment.prod';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -19,8 +20,8 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
     auth: {
-      clientId: "62c6343c-7223-41c9-834f-bdacb1bfd82f",
-      authority: 'https://login.microsoftonline.com/b76cc3e0-ccc5-4500-8428-479f650a96a6',
+      clientId: environment.azureActiveDirectory.clientId,
+      authority: environment.azureActiveDirectory.authority,
       redirectUri: "http://localhost:4200",
       postLogoutRedirectUri: "http://localhost:4200"
     },
@@ -32,7 +33,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
 
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map([
-    ['https://localhost:44349', ['62c6343c-7223-41c9-834f-bdacb1bfd82f/access_as_user']]
+    [environment.apiUrl, [environment.azureActiveDirectory.apiScope]]
   ]);
 
   return {
@@ -45,7 +46,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   return { 
     interactionType: InteractionType.Popup,
     authRequest: {
-      scopes: ['api://62c6343c-7223-41c9-834f-bdacb1bfd82f/access_as_user']
+      scopes: [`api://${environment.azureActiveDirectory.apiScope}`]
     },
     loginFailedRoute: "/"
   };
